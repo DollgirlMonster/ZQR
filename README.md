@@ -1,5 +1,5 @@
 # ZQR
-A ZScript reimplementation of [QR-canvas](https:github.com/asdfgdhtns/QR-canvas) by [ellie online](https://ellie.online)
+A ZScript reimplementation of [QR-canvas](https://github.com/asdfgdhtns/QR-canvas) by [ellie online](https://ellie.online)
 
 
 ## Usage:
@@ -14,7 +14,7 @@ In the BaseStatusBar.Draw() function, you can use the QR code object to draw the
 override void Draw(int state, double TicFrac)
 { 
     ...
-    Draw the QR code
+    // Draw the QR code
     qr.Draw();
     ...
 }
