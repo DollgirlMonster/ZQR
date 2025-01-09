@@ -52,11 +52,14 @@ class QRCode ui
 
         codeWords.Resize(nDatawords + nECwords);
 
-        // Initialize codeWords array with random data
-        for (int i = 0; i < 134; i++)
-        {
-            codeWords[i] = Random(0, 255);
-        }
+				if (scrambleUnusedBits)
+				{
+	        // Initialize codeWords array with random data
+	        for (int i = 0; i < 134; i++)
+	        {
+	            codeWords[i] = Random(0, 255);
+	        }
+				}
 
         // console.Printf("Message: "..message);
 
