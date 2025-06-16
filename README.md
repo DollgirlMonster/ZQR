@@ -11,7 +11,7 @@ QRCode qr = QRCode.Create("https:www.ellie.online");
 
 Once your code is created, you can draw it to the screen in two ways:
 
-1. In the BaseStatusBar.Draw() function, you can use the QR code object to draw the QR code:
+1. In the BaseStatusBar.Draw() function, you can use the QR code object to draw the QR code directly to the screen:
 ```
 override void Draw(int state, double TicFrac)
 { 
