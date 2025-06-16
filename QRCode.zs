@@ -701,4 +701,105 @@ class QRCode ui
             }
         }
     }
+
+    void DrawCanvasTexture(
+        string texture,
+        string backgroundTexture = "",
+        color fgColor = color(255, 0, 0, 0), 
+        color bgColor = color(255, 255, 255, 255), 
+        float fgAlpha = 1.0,
+        float bgAlpha = 1.0,
+        int scalar = 1, 
+        int xOffset = 0, 
+        int yOffset = 0,
+        int styleFlags = STYLE_Normal
+    ) {
+        if (texture == "") return;
+        
+        // Make sure texture exists
+        TextureID texID = TexMan.CheckForTexture(texture);
+        if (!texID) return;
+
+        // Create canvas from texture (if this fails, make sure you have a CanvasTexture defined in ANIMDEFS)
+        Canvas canvas = TexMan.GetCanvas(texture);
+        if (canvas == null) return;
+
+        // Get width and height from CanvasTexture
+        let [w, h] = TexMan.GetSize(texID);
+
+        // Draw background texture if exists
+        let bgTex = TexMan.CheckForTexture(backgroundTexture);
+        if (bgTex) {
+            canvas.DrawTexture(bgTex, false, 0, 0);
+        } else {
+            console.Printf("Error in ZQR.DrawCanvasTexture('" .. texture .. "'): Background texture '" .. backgroundTexture .. "' not found, drawing QR code on a blank canvas");
+        }
+
+        // Fit qr code to the center of the texture
+        // TODO: add a flag for this
+        xOffset += w / 4;
+        yOffset += h / 4;
+    
+        BORDER = scalar * 2;
+        SIZE = BORDER + (scalar * 37);
+
+        // Draw the quiet area shhhshshshh
+        canvas.Dim( // Left
+            bgColor,
+            bgAlpha,
+            xOffset, yOffset + scalar,
+            BORDER / 2, SIZE - scalar,
+            styleFlags
+        );
+        canvas.Dim( // Right
+            bgColor,
+            bgAlpha,
+            xOffset + SIZE - (BORDER / 2), yOffset + scalar,
+            BORDER / 2, SIZE - scalar,
+            styleFlags
+        );
+        canvas.Dim( // Top
+            bgColor,
+            bgAlpha,
+            xOffset, yOffset,
+            SIZE, BORDER / 2,
+            styleFlags
+        );
+        canvas.Dim( // Bottom
+            bgColor,
+            bgAlpha,
+            xOffset + scalar, yOffset + SIZE - (BORDER / 2),
+            SIZE - (scalar * 2), BORDER / 2,
+            styleFlags
+        );
+
+
+        // Draw the QR code based on the dot pattern
+        for (int x = 0; x < 37; x++)
+        {
+            for (int y = 0; y < 37; y++)
+            {
+                if (dotArray[x][y])
+                {
+                    canvas.Dim(
+                        fgColor,
+                        fgAlpha,
+                        xOffset + (x * scalar + (BORDER / 2)),
+                        yOffset + (y * scalar + (BORDER / 2)),
+                        scalar, scalar,
+                        styleFlags
+                    );
+                } else {
+                    canvas.Dim(
+                        bgColor,
+                        bgAlpha,
+                        xOffset + (x * scalar + (BORDER / 2)),
+                        yOffset + (y * scalar + (BORDER / 2)),
+                        scalar, scalar,
+                        styleFlags
+                    );
+                }
+            }
+        }
+    }
 }
