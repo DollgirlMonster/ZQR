@@ -666,22 +666,19 @@ class QRCode ui
     }
 
 
-    void Draw(
-        color bgColor = color(255, 0, 0, 0), 
-        color fgColor = color(255, 255, 255, 255), 
+    void DrawBaseStatusBar(
+        color fgColor = color(255, 0, 0, 0), 
+        color bgColor = color(255, 255, 255, 255), 
         int scalar = 3, 
         int xOffset = 0, 
         int yOffset = 0, 
-        int flags = 0       // Defaults to screen center
+        int flags = BaseStatusBar(StatusBar).DI_SCREEN_CENTER       // Defaults to screen center
     ) {
         // Fill(color(255, 255, 255, 255), 0., 0., scalar+ BORDER, scalar+ BORDER, DI_SCREEN_CENTER);
 
         // Get status bar visibility
         let sb = BaseStatusBar(StatusBar);
         if (!sb) return;
-
-        // Add center flag if none are set
-        if (flags == 0) flags |= sb.DI_SCREEN_CENTER;
 
         // scalar = 3;
         BORDER = scalar * 2;
