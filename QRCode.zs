@@ -393,10 +393,10 @@ class QRCode ui
         int R[109];     // 109 is number of data code words + 1
 
         calcCGP(CGP);
-        for (int i; i < CGP.Size(); i++)
-        {
-            console.Printf("CGP["..i.."]: "..CGP[i]);
-        }
+        // for (int i; i < CGP.Size(); i++)
+        // {
+        //     console.Printf("CGP["..i.."]: "..CGP[i]);
+        // }
 
         for (int i; i < nDatawords; i++)
         {
