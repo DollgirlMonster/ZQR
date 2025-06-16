@@ -9,15 +9,25 @@ Create a qr code object and pass the data you'd like to include:
 QRCode qr = QRCode.Create("https:www.ellie.online");
 ```
 
-In the BaseStatusBar.Draw() function, you can use the QR code object to draw the QR code:
+Once your code is created, you can draw it to the screen in two ways:
+
+1. In the BaseStatusBar.Draw() function, you can use the QR code object to draw the QR code:
 ```
 override void Draw(int state, double TicFrac)
 { 
     ...
     // Draw the QR code
-    qr.Draw();
+    qr.DrawBaseStatusBar();
     ...
 }
+```
+
+2. Alternatively, you can draw the QR code on a Canvas Texture. First, you must define your texture in ANIMDEFS, then you can pass the name of the texture to the DrawCanvasTexture function:
+```
+    ...
+    // Draw the QR code to a texture
+    qr.DrawCanvasTexture("MyQRCodeTexture");
+    ...
 ```
 
 
