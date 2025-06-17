@@ -144,7 +144,7 @@ class QRCode ui
     void drawSmallAlignment(int x, int y)
     {
         // Prints a small alignment square to dot array at x, y
-        dotArray[x][y]=True
+        dotArray[x][y]=True;
         dotArray[x + 1][y] = true;
         dotArray[x + 2][y] = true;
         dotArray[x + 3][y] = true;
